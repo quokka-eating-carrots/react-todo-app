@@ -24,3 +24,25 @@ export const getTodo = async () => {
     };
   }
 };
+
+export const editTodo = async (
+  todoId: string,
+  title: string,
+  done: boolean
+) => {
+  try {
+    const response = await requestAPI.put(`/${todoId}`, {
+      title,
+      done,
+    });
+    return {
+      ok: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+    };
+  }
+};
