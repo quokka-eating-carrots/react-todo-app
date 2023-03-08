@@ -1,0 +1,31 @@
+@import "reset-css";
+@font-face {
+  font-family: "HBIOS-SYS";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --main-dark-color: #2e2e2e;
+  font-family: "HBIOS-SYS", sans-serif;
+}
+
+* {
+  font-family: "HBIOS-SYS", sans-serif;
+  font-size: 14px;
+  color: var(--main-dark-color);
+}
+
+body {
+  height: 100vh;
+  background: rgb(46, 255, 67);
+  background: linear-gradient(
+    0deg,
+    rgba(46, 255, 67, 1) 0%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(46, 255, 67, 1) 100%
+  );
+}
