@@ -80,12 +80,16 @@ const TodoList = ({ todo }: Props) => {
   );
 };
 
-const Todo = styled.div.attrs((props: { checkTodo: boolean }) => props)`
+type StyleProps = {
+  checkTodo: boolean;
+};
+
+const Todo = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 100px;
-  background: ${(props) =>
-    props.checkTodo
+  background: ${({ checkTodo }: StyleProps) =>
+    checkTodo
       ? "linear-gradient(0deg, rgba(142,194,255,1) 0%, rgba(255,255,255,1) 100%)"
       : "#fff"};
   border: 2px solid var(--main-dark-color);
@@ -94,7 +98,6 @@ const Todo = styled.div.attrs((props: { checkTodo: boolean }) => props)`
   align-items: center;
   padding: 10px;
 `;
-
 const EditBox = styled.div`
   display: flex;
   gap: 10px;
