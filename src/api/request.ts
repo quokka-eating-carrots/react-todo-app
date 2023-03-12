@@ -5,8 +5,15 @@ export const createTodo = async (title: string) => {
     const response = await requestAPI.post("", {
       title,
     });
+    return {
+      ok: true,
+      data: response.data,
+    };
   } catch (error) {
     console.log(error);
+    return {
+      ok: false,
+    };
   }
 };
 
@@ -35,6 +42,21 @@ export const editTodo = async (
       title,
       done,
     });
+    return {
+      ok: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+    };
+  }
+};
+
+export const deleteTodo = async (todoId: string) => {
+  try {
+    const response = await requestAPI.delete(`/${todoId}`);
     return {
       ok: true,
       data: response.data,

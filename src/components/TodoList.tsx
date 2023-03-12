@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { editTodo } from "../api/request";
+import { editTodo, deleteTodo } from "../api/request";
 import { TodoType } from "../utils/Types";
-import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import { FiEdit3, FiTrash2, FiXCircle } from "react-icons/fi";
 
 type Props = {
   todo: TodoType;
@@ -35,6 +35,10 @@ const TodoList = ({ todo }: Props) => {
     setTodoTitle(value);
   };
 
+  const deleteHandler = async () => {
+    await deleteTodo(todo.id);
+  };
+
   return (
     <Todo checkTodo={checkTodo}>
       <img
@@ -47,11 +51,27 @@ const TodoList = ({ todo }: Props) => {
         }}
       />
       {editing ? (
-        <form onSubmit={editSubmit}>
-          <input type="text" value={todoTitle} onChange={onChange} autoFocus />
-          <div>
-            <button type="submit">수정</button>
-            <button onClick={toggleEditing}>취소</button>
+        <form
+          onSubmit={editSubmit}
+          style={{ display: "flex", width: "100%", gap: "10px" }}
+        >
+          <EditTitle
+            type="text"
+            value={todoTitle}
+            onChange={onChange}
+            autoFocus
+          />
+          <div style={{ display: "flex", gap: "10px", flexGrow: 1 }}>
+            <button
+              type="submit"
+              style={{ border: "none", background: "transparent" }}
+            >
+              <FiEdit3 style={{ cursor: "pointer", fontSize: "20px" }} />
+            </button>
+            <FiXCircle
+              onClick={toggleEditing}
+              style={{ cursor: "pointer", fontSize: "20px" }}
+            />
           </div>
         </form>
       ) : (
@@ -66,10 +86,16 @@ const TodoList = ({ todo }: Props) => {
               flexGrow: 1,
             }}
           >
-            <EditBox>
-              <FiEdit3 onClick={toggleEditing} />
-              <FiTrash2 />
-            </EditBox>
+            <div style={{ display: "flex", gap: "10px", flexGrow: 1 }}>
+              <FiEdit3
+                onClick={toggleEditing}
+                style={{ cursor: "pointer", fontSize: "20px" }}
+              />
+              <FiTrash2
+                onClick={deleteHandler}
+                style={{ cursor: "pointer", fontSize: "20px" }}
+              />
+            </div>
             <span style={{ fontSize: "12px" }}>
               {todo.createdAt.slice(0, 10)}
             </span>
@@ -98,9 +124,13 @@ const Todo = styled.div`
   align-items: center;
   padding: 10px;
 `;
-const EditBox = styled.div`
-  display: flex;
-  gap: 10px;
+
+const EditTitle = styled.input`
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  flex-grow: 2;
+  background-color: transparent;
 `;
 
 export default TodoList;

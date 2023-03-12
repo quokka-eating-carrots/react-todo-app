@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { title, songLength } from "../utils/songs";
 import styled from "styled-components";
+import AddTodo from "./AddTodo";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
+  const [addToggle, setAddToggle] = useState<boolean>(false);
   const randomNum = Math.floor(Math.random() * title.length);
   return (
     <HeaderSection>
@@ -21,7 +21,8 @@ const Header = (props: Props) => {
           <span>⇆ ◁ ❚❚ ▷ ↻</span>
         </MusicBox>
       </div>
-      <AddButton>+</AddButton>
+      <AddButton onClick={() => setAddToggle((prev) => !prev)}>+</AddButton>
+      {addToggle ? <AddTodo setAddToggle={setAddToggle} /> : null}
     </HeaderSection>
   );
 };
