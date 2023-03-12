@@ -7,9 +7,7 @@ import StateBar from "./components/StateBar/StateBar";
 import TodoList from "./components/TodoList";
 import { TodoType } from "./utils/Types";
 
-type Props = {};
-
-const App = (props: Props) => {
+const App = () => {
   const [todo, setTodo] = useState<TodoType[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +19,6 @@ const App = (props: Props) => {
     fetchData();
   }, []);
 
-  console.log(todo);
   return (
     <Wrapper>
       <Header />
