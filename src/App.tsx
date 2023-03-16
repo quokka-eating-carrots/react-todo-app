@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getTodo } from "./api/request";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import StateBar from "./components/StateBar/StateBar";
 import TodoList from "./components/TodoList";
-import { TodoType } from "./utils/Types";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "./redux/store";
+import { getTodoItems } from "./redux/todoSlice";
 
 const App = () => {
-  const [todo, setTodo] = useState<TodoType[]>([]);
+  const dispatch = useDispatch();
+  const todoList = useSelector((state: RootState) => state.todo);
   useEffect(() => {
-    const fetchData = async () => {
-      const { ok, data } = await getTodo();
-      if (ok) {
-        setTodo(data);
-      }
+    const fetchData = () => {
+      dispatch(getTodoItems() as any);
     };
     fetchData();
   }, []);
@@ -24,8 +23,8 @@ const App = () => {
       <Header />
       <StateBar />
       <TodoDiv>
-        {todo
-          ? todo.map((item) => <TodoList todo={item} key={item.id} />)
+        {todoList
+          ? todoList.map((item) => <TodoList todo={item} key={item.id} />)
           : null}
       </TodoDiv>
       <Footer />

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { editTodo, deleteTodo } from "../api/request";
 import { TodoType } from "../utils/Types";
 import { FiEdit3, FiTrash2, FiXCircle } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { deleteTodoItems } from "../redux/todoSlice";
 
 type Props = {
   todo: TodoType;
@@ -12,6 +14,8 @@ const TodoList = ({ todo }: Props) => {
   const [editing, setEditing] = useState<boolean>(false);
   const [todoTitle, setTodoTitle] = useState<string>(todo.title);
   const [checkTodo, setCheckTodo] = useState<boolean>(todo.done);
+
+  const dispatch = useDispatch();
 
   const randomNum = Math.floor(Math.random() * 5) + 1;
   const toggleEditing = () => {
@@ -35,8 +39,8 @@ const TodoList = ({ todo }: Props) => {
     setTodoTitle(value);
   };
 
-  const deleteHandler = async () => {
-    await deleteTodo(todo.id);
+  const deleteHandler = () => {
+    dispatch(deleteTodoItems(todo.id) as any);
   };
 
   return (

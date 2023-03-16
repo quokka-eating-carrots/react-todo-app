@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { createTodo } from "../api/request";
+import { createTodoItem, getTodoItems } from "../redux/todoSlice";
 
 type Props = {
   setAddToggle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,10 +9,12 @@ type Props = {
 
 const AddTodo = ({ setAddToggle }: Props) => {
   const [newTodo, setNewTodo] = useState<string>("");
+  const dispatch = useDispatch();
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (newTodo) {
-      await createTodo(newTodo);
+      dispatch(createTodoItem(newTodo) as any);
+      dispatch(getTodoItems() as any);
     }
     setAddToggle((prev) => !prev);
   };
@@ -39,6 +42,7 @@ const AddTodo = ({ setAddToggle }: Props) => {
               borderBottom: "2px solid #e2e2e2",
               outline: "none",
             }}
+            autoFocus
           />
           <button
             type="submit"
