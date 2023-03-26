@@ -57,6 +57,7 @@ export const editTodo = async (
 export const deleteTodo = async (todoId: string) => {
   try {
     const response = await requestAPI.delete(`/${todoId}`);
+    console.log(response.data);
     return {
       ok: true,
       data: response.data,
